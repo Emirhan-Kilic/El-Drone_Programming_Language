@@ -1,1 +1,63 @@
-test += 31
+# Connect to the drone
+connectDRONE("10.0.0.2", 80)
+
+# Initialize starting values
+currentAltitude = getALTITUDE()
+targetAltitude = 15
+
+# Adjust altitude incrementally in levels: 5, 10, 15
+for (level = 5, level <= targetAltitude, level += 5) {
+    altitudeDiff = level - currentAltitude
+
+    if (altitudeDiff > 0) {
+        print("Ascending to:", level)
+        ascendTime = altitudeDiff / 0.25
+        lastTime = getTIME()
+
+        while (getTIME() - lastTime < ascendTime) {
+            ASCEND()
+        }
+    } else {
+        print("Descending to:", level)
+        descendTime = (0 - altitudeDiff) / 0.25
+        lastTime = getTIME()
+
+        while (getTIME() - lastTime < descendTime) {
+            DESCEND()
+        }
+    }
+
+    currentAltitude = getALTITUDE()
+    print("Reached target altitude:", currentAltitude)
+}
+
+# Wait for a moment
+waitStart = getTIME()
+while (getTIME() - waitStart < 5) {
+    WAIT()
+}
+
+# Move in a circular path at the new altitude
+for (angle = 0, angle < 360, angle += 45) {
+    moveConnectedDrone(angle, 20)
+}
+
+# Reset heading and altitude
+print("Returning to base...")
+moveConnectedDrone(0, 50)
+if (getALTITUDE() > 5) {
+    lastTime = getTIME()
+    while (getALTITUDE() > 5) {
+        DESCEND()
+        if (getTIME() - lastTime > 10) {
+            print("Taking too long to descend, forcing STOP")
+            STOP()
+            break
+        }
+    }
+}
+
+
+# Stop the drone and end session
+print("Mission complete, stopping drone")
+STOP()

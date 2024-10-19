@@ -40,6 +40,7 @@ function          { printf("FUNCTION "); }
 print             { printf("PRINT "); }
 input             { printf("INPUT "); }
 return            { printf("RETURN "); }
+break             { printf("BREAK "); }
 
 import          { printf("IMPORT "); }
 as              { printf("AS "); }
