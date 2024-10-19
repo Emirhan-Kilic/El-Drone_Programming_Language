@@ -13,7 +13,7 @@ while ( getTIME() - last-Time != requiredAltitudeTime ) {
     ASCEND()
 }
 
-# Assuming up is north, right is east
+# Assuming up is north, right is east on paper
 moveConnectedDrone(45, 10)
 
 # We know it is 10 but let's say wind might have decrease the altitude a bit
@@ -34,7 +34,6 @@ if ( getALTITUDE() != 4 ) {
             }
     }
 }
-
 
 nozzleON()
 moveConnectedDrone(0, 50)

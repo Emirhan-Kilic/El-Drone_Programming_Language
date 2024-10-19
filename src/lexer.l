@@ -28,8 +28,8 @@ getTIME           { printf("GET_TIME "); }
 moveFORWARD       { printf("MOVE_FORWARD "); }
 DESCEND           { printf("DESCEND "); }
 ASCEND            { printf("ASCEND "); }
-moveLEFT          { printf("MOVE_LEFT "); }
-moveRIGHT         { printf("MOVE_RIGHT "); }
+turnLEFT           { printf("TURN_LEFT "); }
+turnRIGHT         { printf("TURN_RIGHT "); }
 WAIT              { printf("WAIT "); }
 STOP              { printf("STOP "); }
 nozzleON          { printf("NOZZLE_ON "); }
@@ -70,6 +70,9 @@ FALSE             { printf("FALSE "); }
 "/"               { printf("DIV_OP "); }
 "%"               { printf("MOD_OP "); }
 "!"               { printf("NON_OP "); }
+
+"+="              { printf("ADD_ASSIGN "); }
+"-="              { printf("SUB_ASSIGN "); }
 
 "("               { printf("LP "); }
 "{"               { printf("CLB "); }
