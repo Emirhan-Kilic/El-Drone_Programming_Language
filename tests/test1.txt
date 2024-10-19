@@ -1,0 +1,41 @@
+function moveConnectedDrone(heading, distance) {
+    print("Setting Heading")
+
+    # Get the current heading
+
+    currentHeading = getHEADING()
+
+    # Calculate the difference
+
+    difference = heading - currentHeading
+
+    # Normalize the angle to be within [-180, 180]
+    if (difference > 180) {
+        difference -= 360
+    } else if (difference < -180) {
+        difference += 360
+    }
+
+    # Determine the turn direction
+    if (difference < 0) {
+        # Turn left
+        print("Turning Left")
+
+        while (difference != 0) {
+            turnLEFT(difference)
+            difference = difference - 1
+
+        }
+
+    } else if (difference > 0) {
+        # Turn right
+        print("Turning Right")
+        turnRIGHT(difference)
+    }
+
+    print("Moving")
+    moveFORWARD(distance)
+    print("Done")
+}
+
+

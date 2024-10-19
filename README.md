@@ -6,3 +6,9 @@ How to run the lexer: \
 3- cmkae .. \
 4- make \
 5- ./lexer 
+
+To test the .txt files: \
+cd build \
+cat path_to_txt | ./lexer
+
+example: cat ../tests/test1.txt | ./lexer

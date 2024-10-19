@@ -20,67 +20,69 @@ stringDoubleQuote  (\"[^"]*\")
 string             ({stringSingleQuote}|{stringDoubleQuote})
 
 %%
-{string}             { printf("string, %s\n", yytext); }
+{string}          { printf("STRING "); }
 
-"getHeading"        { printf("KEYWORD: getHeading\n"); }
-"getAltitude"       { printf("KEYWORD: getAltitude\n"); }
-"getCurrentTime"    { printf("KEYWORD: getCurrentTime\n"); }
-"moveForward"       { printf("KEYWORD: moveForward\n"); }
-"descend"           { printf("KEYWORD: descend\n"); }
-"ascend"            { printf("KEYWORD: ascend\n"); }
-"turnLeft"          { printf("KEYWORD: turnLeft\n"); }
-"turnRight"         { printf("KEYWORD: turnRight\n"); }
-"wait"              { printf("KEYWORD: wait\n"); }
-"stop"              { printf("KEYWORD: stop\n"); }
-"enableNozzle"      { printf("KEYWORD: enableNozzle\n"); }
-"disableNozzle"     { printf("KEYWORD: disableNozzle\n"); }
-"connectToDrone"    { printf("KEYWORD: connectToDrone\n"); }
+getHEADING        { printf("GET_HEADING "); }
+getALTITUDE       { printf("GET_ALTITUDE "); }
+getTIME           { printf("GET_TIME "); }
+moveFORWARD       { printf("MOVE_FORWARD "); }
+DESCEND           { printf("DESCEND "); }
+ASCEND            { printf("ASCEND "); }
+moveLEFT          { printf("MOVE_LEFT "); }
+moveRIGHT         { printf("MOVE_RIGHT "); }
+WAIT              { printf("WAIT "); }
+STOP              { printf("STOP "); }
+nozzleON          { printf("NOZZLE_ON "); }
+nozzleOFF         { printf("NOZZLE_OFF "); }
+connectDRONE      { printf("CONNECT_DRONE "); }
 
-"print"             { printf("print, %s\n", yytext);}
-"input"             { printf("input, %s\n", yytext);}
+function          { printf("FUNCTION "); }
+print             { printf("PRINT "); }
+input             { printf("INPUT "); }
+return            { printf("RETURN "); }
 
+import          { printf("IMPORT "); }
+as              { printf("AS "); }
+from            { printf("FROM "); }
 
-"if"                { printf("IF, %s\n", yytext); }
-"else if"           { printf("ELSE_IF, %s\n", yytext); }
-"else"              { printf("ELSE, %s\n", yytext); }
-"while"             { printf("while, %s\n", yytext); }
-"for"               { printf("for, %s\n", yytext); }
+if                { printf("IF "); }
+"else if"         { printf("ELSE_IF "); }
+else              { printf("ELSE "); }
+while             { printf("WHILE "); }
+for               { printf("FOR "); }
+and               { printf("AND "); }
+or                { printf("OR "); }
 
-"and"             { printf("and (&&), %s\n", yytext);}
-"or"              { printf("or (||), %s\n", yytext);}
+"="               { printf("ASSIGN "); }
+"=="              { printf("EQUAL "); }
+"!="              { printf("NOT_EQUAL "); }
 
-"="               { printf("assign, %s\n", yytext);}
-"=="              { printf("Equal, %s\n", yytext);}
-"!="              { printf("Not Equal, %s\n", yytext);}
+">"               { printf("GT "); }
+">="              { printf("GTE "); }
+"<"               { printf("ST "); }
+"<="              { printf("STE "); }
 
-">"               { printf("Larger Than, %s\n", yytext);}
-">="              { printf("Larger Than Equal, %s\n", yytext);}
+"+"               { printf("PLUS_OP "); }
+"-"               { printf("MINUS_OP "); }
+"*"               { printf("MULT_OP "); }
+"/"               { printf("DIV_OP "); }
+"%"               { printf("MOD_OP "); }
+"!"               { printf("NON_OP "); }
 
-"<"               { printf("Smaller Than, %s\n", yytext);}
-"<="              { printf("Smaller Than Equal, %s\n", yytext);}
+"("               { printf("LP "); }
+"{"               { printf("CLB "); }
+")"               { printf("RP "); }
+"}"               { printf("RCB "); }
 
-"+"               { printf("Addition OP, %s\n", yytext);}
-"-"               { printf("Subtraction OP, %s\n", yytext);}
-"*"               { printf("Multiplication OP, %s\n", yytext);}
-"/"               { printf("Division OP, %s\n", yytext);}
-"%"               { printf("Mod OP, %s\n", yytext);}
+","               { printf("COMMA "); }
 
-"("               { printf("Left Parenthesis, %s\n", yytext);}
-"{"               { printf("Left Curly Parenthesis, %s\n", yytext);}
-")"               { printf("Right Parenthesis, %s\n", yytext);}
-"}"               { printf("Right Curly Parenthesis, %s\n", yytext);}
+{integer}         { printf("INTEGER "); }
+{float}           { printf("FLOAT "); }
+{identifier}      { printf("IDENTIFIER "); }
+{comment}         { printf("COMMENT "); }
 
-";"               { printf("Semi Colon, %s\n", yytext);}
-","               { printf("Comma, %s\n", yytext);}
-
-
-{integer}         { printf("integer, %s\n", yytext); }
-{float}           { printf("float, %s\n", yytext); }
-{identifier}      { printf("identifier, %s\n", yytext); }
-{alphanumeric}    { printf("alphanumeric, %s\n", yytext); }
-{comment}         { printf("comment, %s\n", yytext); }
-
-\n                { /* Ignore newline */ }
-[ \t\n]+          { /* Ignore whitespace */ }
-.                 { printf("Unknown token: %s\n", yytext); }
+[ \t]            { /* Ignore whitespace */ }
+\n                  { printf("NEW_LINE "); }
+\r\n                { printf("NEW_LINE "); }
+.                { printf("Unknown token: %s\n  end", yytext);}
 %%
