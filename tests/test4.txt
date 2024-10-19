@@ -1,1 +1,40 @@
-break
+connectDRONE("192.198.31.33", 41)
+
+current_Altitude = getALTITUDE()
+last_Time = getTIME()
+
+# Check altitude and adjust if necessary
+if (current_Altitude < 5) {
+    ascendTime = (5 - current_Altitude) / 0.25
+    last_Time = getTIME()
+    while (getTIME() - last_Time < ascendTime) {
+        ASCEND()
+    }
+}
+
+# Move to the delivery point at (heading 180, distance 100)
+moveConnectedDrone(180, 100)
+
+# Deliver package
+nozzleON()
+
+waitStart = getTIME()
+while (getTIME() - waitStart < 2) {
+    WAIT()
+}
+
+nozzleOFF()
+
+moveConnectedDrone(0, 100)
+
+# Ensure to adjust altitude to base level
+current_Altitude = getALTITUDE()
+if (current_Altitude > 0) {
+    descendTime = current_Altitude / 0.25
+    last_Time = getTIME()
+    while (getTIME() - last_Time < descendTime) {
+        DESCEND()
+    }
+}
+
+STOP()
