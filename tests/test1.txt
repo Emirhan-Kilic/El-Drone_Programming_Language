@@ -11,9 +11,9 @@ function moveConnectedDrone(heading, distance) {
 
     # Normalize the angle to be within [-180, 180]
     if (difference > 180) {
-        difference -= 360
+        difference = difference - 360
     } else if (difference < -180) {
-        difference += 360
+        difference = difference + 360
     }
 
     # Determine the turn direction
@@ -24,7 +24,6 @@ function moveConnectedDrone(heading, distance) {
         while (difference != 0) {
             turnLEFT()
             difference = difference + 1
-
         }
 
     } else if (difference > 0) {
@@ -36,9 +35,16 @@ function moveConnectedDrone(heading, distance) {
 
         }
     }
-
     print("Moving")
-    moveFORWARD(distance)
+
+    # 0.75 m/s forward speed
+
+    neededTimeToRun = distance / 0.75
+
+    last-Time = getTIME()
+    while ( getTIME() - last-Time != neededTimeToRun ){
+           moveFORWARD()
+    }
     print("Done")
 }
 

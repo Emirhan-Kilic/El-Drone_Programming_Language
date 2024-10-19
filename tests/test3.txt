@@ -1,0 +1,17 @@
+if ( getALTITUDE() != 4 ) {
+    current_Altitude = getALTITUDE()
+
+    if ( current_Altitude < 4 ) {
+        ascendTime = (4 - current_Altitude) / 0.25
+        last-Time = getTIME()
+        while ( getTIME() - last-Time != ascendTime ) {
+            ASCEND()
+        }
+    } else {
+            descendTime = (4 - current_Altitude) / 0.25
+            last-Time = getTIME()
+            while ( getTIME() - last-Time != descendTime ) {
+                DESCEND()
+            }
+    }
+}
