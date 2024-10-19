@@ -22,15 +22,19 @@ function moveConnectedDrone(heading, distance) {
         print("Turning Left")
 
         while (difference != 0) {
-            turnLEFT(difference)
-            difference = difference - 1
+            turnLEFT()
+            difference = difference + 1
 
         }
 
     } else if (difference > 0) {
         # Turn right
         print("Turning Right")
-        turnRIGHT(difference)
+        while (difference != 0) {
+            turnRIGHT()
+            difference = difference - 1
+
+        }
     }
 
     print("Moving")
