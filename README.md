@@ -12,3 +12,5 @@ cd build \
 cat path_to_txt | ./lexer
 
 example: cat ../tests/test1.txt | ./lexer
+
+use > to direct result to .txt
