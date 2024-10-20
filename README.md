@@ -11,6 +11,10 @@ To test the .txt files: \
 cd build \
 cat path_to_txt | ./lexer
 
-example: cat ../tests/test1.txt | ./lexer
+example: 
 
-use > to direct result to .txt
+cat ../tests/test1.txt | ./lexer
+
+or
+
+./lexer < ../tests/test1.txt
