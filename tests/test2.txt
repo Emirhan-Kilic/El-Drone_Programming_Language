@@ -1,6 +1,6 @@
 connectDRONE("192.198.31.31", 42)
 
-last-Time = getTIME()
+lastTime = getTIME()
 # it is at the ground so 0, but to prevent hard code, primitive function is used
 current_Altitude = getALTITUDE()
 
@@ -8,8 +8,8 @@ current_Altitude = getALTITUDE()
 altitude_change = 10 - current_Altitude
 requiredAltitudeTime = altitude_change / 0.25
 
-last-Time = getTIME()
-while ( getTIME() - last-Time != requiredAltitudeTime ) {
+lastTime = getTIME()
+while ( getTIME() - lastTime != requiredAltitudeTime ) {
     ASCEND()
 }
 
@@ -22,14 +22,14 @@ if ( getALTITUDE() != 4 ) {
 
     if ( current_Altitude < 4 ) {
         ascendTime = (4 - current_Altitude) / 0.25
-        last-Time = getTIME()
-        while ( getTIME() - last-Time != ascendTime ) {
+        lastTime = getTIME()
+        while ( getTIME() - lastTime != ascendTime ) {
             ASCEND()
         }
     } else {
             descendTime = (4 - current_Altitude) / 0.25
-            last-Time = getTIME()
-            while ( getTIME() - last-Time != descendTime ) {
+            lastTime = getTIME()
+            while ( getTIME() - lastTime != descendTime ) {
                 DESCEND()
             }
     }

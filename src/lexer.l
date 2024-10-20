@@ -4,7 +4,7 @@
 
 /* Define patterns */
 letter        [A-Za-z]
-symbols       [-_]
+symbols       [_]
 zero          [0]
 nonZeroDigit  [1-9]
 digit         ({zero}|{nonZeroDigit})
