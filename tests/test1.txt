@@ -41,7 +41,7 @@ function moveConnectedDrone(heading, distance) {
 
     neededTimeToRun = distance / 0.75
 
-    last-Time = getTIME()
+    last_Time = getTIME()
     while ( getTIME() - last_Time != neededTimeToRun ){
            moveFORWARD()
     }
