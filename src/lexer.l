@@ -74,6 +74,11 @@ FALSE             { printf("FALSE "); }
 
 "+="              { printf("ADD_ASSIGN "); }
 "-="              { printf("SUB_ASSIGN "); }
+"*="              { printf("MUL_ASSIGN "); }
+"/="              { printf("DIV_ASSIGN "); }
+
+"++"              { printf("INCREMENT "); }
+"--"              { printf("DECREMENT "); }
 
 "("               { printf("LP "); }
 "{"               { printf("CLB "); }
