@@ -15,6 +15,7 @@ number        ({float}|{integer})
 alphanumeric  ({letter}+({zero}|{nonZeroDigit}|{letter})*)
 identifier    ({alphanumeric}+({alphanumeric}|{symbols}|{digit})*)
 comment       ("#"[^\n]*)
+multi_comment  (##([^\n]*\n?)*?##)
 stringSingleQuote  (\'[^']*\')
 stringDoubleQuote  (\"[^"]*\")
 string             ({stringSingleQuote}|{stringDoubleQuote})
@@ -90,6 +91,7 @@ FALSE             { printf("FALSE "); }
 {integer}         { printf("INTEGER "); }
 {float}           { printf("FLOAT "); }
 {identifier}      { printf("IDENTIFIER "); }
+{multi_comment}   { printf("MULTI_COMMENT "); }
 {comment}         { printf("COMMENT "); }
 
 [ \t]            { /* Ignore whitespace */ }
