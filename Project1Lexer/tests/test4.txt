@@ -1,4 +1,4 @@
-connectDRONE("www.dronyk.com")
+connectDRONE("www.eldrone.com")
 
 current_Altitude = getALTITUDE()
 last_Time = getTIME()
