@@ -15,7 +15,7 @@ number        ({float}|{integer})
 alphanumeric  ({letter}+({zero}|{nonZeroDigit}|{letter})*)
 identifier    ({alphanumeric}+({alphanumeric}|{symbols}|{digit})*)
 comment       ("#"[^\n]*)
-multi_comment  (##([^\n]*\n?)*?##)
+multi_comment  "##"([^#]|#[^#])*"##"
 stringSingleQuote  (\'[^']*\')
 stringDoubleQuote  (\"[^"]*\")
 string             ({stringSingleQuote}|{stringDoubleQuote})
