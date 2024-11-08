@@ -1,1 +1,250 @@
-Your example program, in text format.
+#Your example program, in text format.
+
+function moveConnectedDrone(heading, distance) {
+    print("Setting Heading")
+
+    # Get the current heading
+
+    currentHeading = getHEADING()
+
+    # Calculate the difference
+
+    difference = heading - currentHeading
+
+    if (difference > 180) {
+        difference = difference - 360
+    } else if (difference < -180) {
+        difference = difference + 360
+    }
+
+    # Determine the turn direction
+    if (difference <= 0) {
+        # Turn left
+        print("Turning Left")
+
+        while (difference != 0) {
+            turnLEFT()
+            difference = difference + 1
+        }
+
+    } else if (difference >= 0) {
+        # Turn right
+        print("Turning Right")
+        while (difference != 0) {
+            turnRIGHT()
+            difference = difference - 1
+
+        }
+    } else {
+        print("This will never print")
+    }
+
+    print("Moving")
+
+    # 0.75 m/s forward speed
+
+    neededTimeToRun = distance / 0.75
+
+    last_Time = getTIME()
+    while ( getTIME() - last_Time != neededTimeToRun ){
+           moveFORWARD()
+    }
+    print("Done")
+}
+
+
+
+##
+This is testing the
+Multiline
+Comment
+Hope
+Works
+##
+
+
+x = 3
+t = -4
+y = 3.25
+z = 0.31
+f = x - 1
+g = y + z
+f = 25-1
+x += 5
+y -= 1
+x /= 1
+y *= 2
+y++
+x--
+
+
+bjk = 25 % 5
+jk = 35 / 5
+jk = jk * 2
+
+#Error
+fg = f g
+#Error
+fg = f not g
+
+
+
+bol = TRUE
+teBol = FALSE
+noBol = not bol
+comBol = bol and noBol
+orBol = comBol or noBol
+sonBol = not sonBol
+
+#Error
+erBol = not
+
+
+#Error
+connectDRONE(1313)
+#Error
+connectDRONE(ismailyk.com)
+
+connectDRONE("www.eldrone.com")
+
+
+
+# 10 seconds to look at the camera may be, just to have fun
+timeToHaveFun = getTIME()
+while (getTIME() - timeToHaveFun < 10) {
+    WAIT()
+}
+
+current_Altitude = getALTITUDE()
+last_Time = getTIME()
+
+##
+Test Multiline comment inbetween other codes
+##
+
+
+
+if (current_Altitude < 5) {
+    ascendTime = (5 - current_Altitude) / 0.25
+    last_Time = getTIME()
+    while (getTIME() - last_Time < ascendTime) {
+        ASCEND()
+    }
+}
+
+ascendTime = (current_Altitude - 2) / 0.25
+last_Time = getTIME()
+while (getTIME() - last_Time < ascendTime) {
+    DESCEND()
+}
+
+ascendTime = (10 - current_Altitude) / 0.25
+last_Time = getTIME()
+while (getTIME() - last_Time < ascendTime) {
+    #ERROR
+    DESCEND(10)
+}
+
+#Error
+ASCEND(10)
+
+#ERROR
+ASCEND(UP)
+
+#ERROR
+ASCEND(x)
+
+#ERROR
+turnRIGHT(5)
+
+
+currentHeading = getHEADING()
+
+difference = 270 - currentHeading
+
+while (difference != 0) {
+    turnRIGHT()
+    difference--
+}
+
+distance = 1000
+
+neededTimeToRun = distance / 0.75
+
+last_Time = getTIME()
+while ( getTIME() - last_Time != neededTimeToRun ){
+       moveFORWARD()
+}
+
+waitStart = getTIME()
+while (getTIME() - waitStart < 10) {
+    WAIT()
+}
+
+
+#ERROR
+while ("haha"){
+    WAIT()
+}
+
+#Error
+WAIT(5)
+
+nozzleON()
+nozzleOFF()
+
+#ERROR
+nozzleON(x)
+#ERROR
+nozzleON(5)
+
+
+nozzleON()
+
+waitStart = getTIME()
+while (getTIME() - waitStart < 2) {
+    WAIT()
+}
+
+nozzleOFF()
+
+moveConnectedDrone(0, 100)
+
+# Ensure to adjust altitude to base level
+current_Altitude = getALTITUDE()
+if (current_Altitude > 0) {
+    descendTime = current_Altitude / 0.25
+    last_Time = getTIME()
+    while (getTIME() - last_Time < descendTime) {
+        DESCEND()
+    }
+}
+
+STOP()
+
+# Adjust altitude incrementally in levels: 5, 10, 15
+for (level = 5, level <= targetAltitude, level += 5) {
+    altitudeDiff = level - currentAltitude
+
+    if (altitudeDiff > 0) {
+        print("Ascending to:", level)
+        ascendTime = altitudeDiff / 0.25
+        lastTime = getTIME()
+
+        while (getTIME() - lastTime < ascendTime) {
+            ASCEND()
+        }
+    } else {
+        print("Descending to:", level)
+        descendTime = (0 - altitudeDiff) / 0.25
+        lastTime = getTIME()
+
+        while (getTIME() - lastTime < descendTime) {
+            DESCEND()
+        }
+    }
+
+    currentAltitude = getALTITUDE()
+    print("Reached target altitude:", currentAltitude)
+}
+
