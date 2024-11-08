@@ -1,5 +1,5 @@
 # Connect to the drone
-connectDRONE("10.0.0.2", 80)
+connectDRONE("www.dronyk.com")
 
 # Initialize starting values
 currentAltitude = getALTITUDE()

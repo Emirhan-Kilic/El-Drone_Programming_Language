@@ -54,6 +54,7 @@ while             { printf("WHILE "); }
 for               { printf("FOR "); }
 and               { printf("AND "); }
 or                { printf("OR "); }
+not                { printf("NOT "); }
 TRUE              { printf("TRUE "); }
 FALSE             { printf("FALSE "); }
 
