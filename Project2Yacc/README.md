@@ -1,4 +1,4 @@
-https://www.cs.bilkent.edu.tr/~guvenir/courses/CS315/Pr1.htm
+https://www.cs.bilkent.edu.tr/~guvenir/courses/CS315/Pr2.htm
 
 How to run the parser: \
 
