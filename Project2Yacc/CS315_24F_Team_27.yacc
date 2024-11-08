@@ -26,6 +26,7 @@ expr: INTEGER
 %%
 #include "lex.yy.c"
 
+/* Buranın altı baştan yazılacak pancar yiyebilir gibi */
 int yyerror(char* s){
   fprintf(stderr, "%s on line %d\n",s, yylineno);
   return 1;
