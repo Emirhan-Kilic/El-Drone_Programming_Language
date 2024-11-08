@@ -6,7 +6,9 @@ YACC_FLAGS = -v
 LEX_FLAGS  =
 
 YACC_SRC   = CS315_24F_Team_27.yacc
-LEX_SRC    = CS315_24F_Team_27.lex
+#LEX_SRC    = CS315_24F_Team_27.lex
+LEX_SRC    = debug.lex
+
 YACC_OUT   = y.tab.c
 LEX_OUT    = lex.yy.c
 EXEC       = parser

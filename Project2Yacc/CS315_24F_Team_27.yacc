@@ -14,16 +14,13 @@
 
 %%
 
-program:  assignment_list;
+program: stmt { printf("\nInput program is valid\n"); return 0; }
 
-assignment_list: assignment
-              | assignment_list assignment;
+stmt: assn_stmt;
 
-assignment: IDENTIFIER ASSIGN expr;
+assn_stmt: IDENTIFIER ASSIGN expr;
 
 expr: INTEGER
-    | FLOAT
-    | STRING
     | IDENTIFIER;
 
 %%
