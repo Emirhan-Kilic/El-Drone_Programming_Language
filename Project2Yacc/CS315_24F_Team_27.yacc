@@ -8,11 +8,12 @@
 %token NON_OP
 %left PLUS_OP MINUS_OP
 %left MULT_OP DIV_OP MOD_OP
+%right AND OR
+%right NOT
 %token ADD_ASSIGN SUB_ASSIGN MUL_ASSIGN DIV_ASSIGN INCREMENT DECREMENT
 %token LP CLB RP RCB COMMA
 %token STRING INTEGER FLOAT IDENTIFIER
 %token MULTI_COMMENT COMMENT NEW_LINE UNKNOWN
-
 
 %%
 
@@ -37,10 +38,7 @@ stmt:
     | import_stmt
 ;
 
-assign_stmt: assign NEW_LINE
-            | expr_stmt NEW_LINE
-            ;
-
+assign_stmt: assign NEW_LINE | expr_stmt NEW_LINE;
 
 assign: string_assign | num_assign | logic_assign;
 
@@ -62,7 +60,7 @@ if_stmt:
     | IF LP logics RP CLB stmt_list RCB ELSE CLB stmt_list RCB
     | IF LP logics RP CLB stmt_list RCB else_if_seq ELSE CLB stmt_list RCB
     | IF LP logics RP CLB stmt_list RCB else_if_seq
-    ;
+;
 
 else_if_seq: else_if | else_if_seq else_if;
 
@@ -86,15 +84,7 @@ argument: STRING | INTEGER | IDENTIFIER;
 
 argument_list: argument | argument_list COMMA argument;
 
-variables:
-    STRING
-    | INTEGER
-    | IDENTIFIER
-;
-
-expr_stmt:
-    expr NEW_LINE
-;
+expr_stmt: expr NEW_LINE;
 
 expr:
     num_expr
@@ -107,16 +97,16 @@ num_expr:
 ;
 
 additive_expr:
-    additive_expr PLUS_OP multiplicative_expr
+    multiplicative_expr
+    | additive_expr PLUS_OP multiplicative_expr
     | additive_expr MINUS_OP multiplicative_expr
-    | multiplicative_expr
 ;
 
 multiplicative_expr:
-    multiplicative_expr MULT_OP primary_expr
+    primary_expr
+    | multiplicative_expr MULT_OP primary_expr
     | multiplicative_expr DIV_OP primary_expr
     | multiplicative_expr MOD_OP primary_expr
-    | primary_expr
 ;
 
 primary_expr:
@@ -143,9 +133,8 @@ string_expr:
 logics:
     TRUE
     | FALSE
-    | IDENTIFIER
-    | num_expr comparators num_expr
-    | string_expr comparators string_expr
+    | IDENTIFIER comparators num_expr
+    | IDENTIFIER comparators string_expr
     | NON_OP LP logics RP
 ;
 
@@ -226,9 +215,9 @@ comment_stmt: COMMENT NEW_LINE;
 multicomment_stmt: MULTI_COMMENT NEW_LINE;
 
 %%
+
 #include "lex.yy.c"
 
-/* Buranın altı baştan yazılacak pancar yiyebilir gibi */
 int yyerror(char* s){
   fprintf(stderr, "%s on line %d\n",s, yylineno);
   return 1;
