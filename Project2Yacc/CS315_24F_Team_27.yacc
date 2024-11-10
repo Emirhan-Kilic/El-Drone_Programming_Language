@@ -3,13 +3,16 @@
 %token FUNCTION PRINT INPUT RETURN BREAK 
 %token IMPORT AS FROM 
 %token IF ELSE_IF ELSE WHILE FOR 
-%token AND OR NOT TRUE FALSE 
-%token ASSIGN EQUAL NOT_EQUAL GT GTE ST STE 
-%token NON_OP %left PLUS_OP MINUS_OP %left MULT_OP DIV_OP MOD_OP 
-%token AND OR NOT 
-%token ADD_ASSIGN SUB_ASSIGN MUL_ASSIGN DIV_ASSIGN INCREMENT DECREMENT  
-%token LP CLB RP RCB COMMA 
-%token STRING INTEGER FLOAT IDENTIFIER 
+%token TRUE FALSE
+%token ASSIGN EQUAL NOT_EQUAL GT GTE ST STE
+%token NON_OP
+%left PLUS_OP MINUS_OP
+%left MULT_OP DIV_OP MOD_OP
+%right NOT
+%left AND OR
+%token ADD_ASSIGN SUB_ASSIGN MUL_ASSIGN DIV_ASSIGN INCREMENT DECREMENT
+%token LP CLB RP RCB COMMA
+%token STRING INTEGER FLOAT IDENTIFIER
 %token MULTI_COMMENT COMMENT NEW_LINE UNKNOWN
 
 %%
@@ -66,8 +69,8 @@ else_if: ELSE_IF LP logics RP CLB stmt_list RCB;
 while_stmt: WHILE LP logics RP CLB stmt_list RCB;
 
 for_stmt:
-    FOR LP expr COMMA logics COMMA num_short_assign RP CLB stmt_list RCB
-    | FOR LP expr COMMA logics COMMA short_operation RP CLB stmt_list RCB
+    FOR LP assign COMMA logics COMMA num_short_assign RP CLB stmt_list RCB
+    | FOR LP assign COMMA logics COMMA short_operation RP CLB stmt_list RCB
 ;
 
 function_stmt:
@@ -77,7 +80,7 @@ function_stmt:
 
 return_stmt: RETURN expr_stmt;
 
-argument: STRING | INTEGER | IDENTIFIER;
+argument: STRING | INTEGER | FLOAT | IDENTIFIER;
 
 argument_list: argument | argument_list COMMA argument;
 
@@ -94,20 +97,21 @@ num_expr:
 ;
 
 additive_expr:
-    multiplicative_expr
-    | additive_expr PLUS_OP multiplicative_expr
+    additive_expr PLUS_OP multiplicative_expr
     | additive_expr MINUS_OP multiplicative_expr
+    | multiplicative_expr
 ;
 
 multiplicative_expr:
-    primary_expr
-    | multiplicative_expr MULT_OP primary_expr
+    multiplicative_expr MULT_OP primary_expr
     | multiplicative_expr DIV_OP primary_expr
     | multiplicative_expr MOD_OP primary_expr
+    | primary_expr
 ;
 
 primary_expr:
     INTEGER
+    | FLOAT
     | IDENTIFIER
     | LP additive_expr RP
     | drone_attrb
@@ -130,11 +134,14 @@ string_expr:
 logics:
     TRUE
     | FALSE
+    | logics AND logics
+    | logics OR logics
+    | NOT logics
     | IDENTIFIER comparators expr
-    | NON_OP LP logics RP
+    | LP logics RP
 ;
 
-logic_expr: IDENTIFIER ASSIGN logics;
+logic_expr: logics;
 
 operation_stmt: operation NEW_LINE;
 
