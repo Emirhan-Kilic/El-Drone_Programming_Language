@@ -5,7 +5,9 @@
 %token IF ELSE_IF ELSE WHILE FOR
 %token AND OR NOT TRUE FALSE
 %token ASSIGN EQUAL NOT_EQUAL GT GTE ST STE
-%token PLUS_OP MINUS_OP MULT_OP DIV_OP MOD_OP NON_OP
+%token NON_OP
+%left PLUS_OP MINUS_OP
+%left MULT_OP DIV_OP MOD_OP
 %token ADD_ASSIGN SUB_ASSIGN MUL_ASSIGN DIV_ASSIGN INCREMENT DECREMENT
 %token LP CLB RP RCB COMMA
 %token STRING INTEGER FLOAT IDENTIFIER
@@ -16,11 +18,29 @@
 
 program: stmt_list { printf("\nInput program is valid\n"); return 0; }
 
-stmt_list: stmt_list | stmt;
+stmt_list: stmt_list stmt | stmt;
 
-stmt: assign_stmt | if_stmt | for_stmt | while_stmt | function_stmt | return_stmt | expr_stmt | operation_stmt | drone_stmt | print_stmt | comment_stmt | multicomment_stmt | break_stmt | import_stmt;
+stmt:
+    assign_stmt
+    | if_stmt
+    | for_stmt
+    | while_stmt
+    | function_stmt
+    | return_stmt
+    | expr_stmt
+    | operation_stmt
+    | drone_stmt
+    | print_stmt
+    | comment_stmt
+    | multicomment_stmt
+    | break_stmt
+    | import_stmt
+;
 
-assign_stmt: assign NEW_LINE;
+assign_stmt: assign NEW_LINE
+            | expr_stmt NEW_LINE
+            ;
+
 
 assign: string_assign | num_assign | logic_assign;
 
@@ -42,7 +62,7 @@ if_stmt:
     | IF LP logics RP CLB stmt_list RCB ELSE CLB stmt_list RCB
     | IF LP logics RP CLB stmt_list RCB else_if_seq ELSE CLB stmt_list RCB
     | IF LP logics RP CLB stmt_list RCB else_if_seq
-;
+    ;
 
 else_if_seq: else_if | else_if_seq else_if;
 
@@ -62,18 +82,9 @@ function_stmt:
 
 return_stmt: RETURN expr_stmt;
 
-arguments:
-    variables
-    | expr
-    | logics
-    | FUNCTION IDENTIFIER LP RP
-    | FUNCTION IDENTIFIER LP argument_list RP
-;
+argument: STRING | INTEGER | IDENTIFIER;
 
-argument_list:
-    argument_list COMMA arguments
-    | arguments
-;
+argument_list: argument | argument_list COMMA argument;
 
 variables:
     STRING
@@ -111,11 +122,8 @@ multiplicative_expr:
 primary_expr:
     INTEGER
     | IDENTIFIER
-    | FUNCTION IDENTIFIER LP RP
-    | FUNCTION IDENTIFIER LP argument_list RP
-    | drone_attrb
     | LP additive_expr RP
-    | primary_expr operators primary_expr
+    | drone_attrb
 ;
 
 drone_attrb:
@@ -128,21 +136,17 @@ string_expr:
     STRING
     | FUNCTION IDENTIFIER LP RP
     | FUNCTION IDENTIFIER LP argument_list RP
-    | IDENTIFIER ASSIGN STRING
-    | IDENTIFIER ASSIGN string_expr
     | string_expr PLUS_OP string_expr
     | LP string_expr RP
 ;
 
 logics:
-    NON_OP logics
-    | num_expr comparators num_expr
-    | string_expr comparators string_expr
-    | FUNCTION IDENTIFIER LP RP
-    | FUNCTION IDENTIFIER LP argument_list RP
-    | TRUE
+    TRUE
     | FALSE
     | IDENTIFIER
+    | num_expr comparators num_expr
+    | string_expr comparators string_expr
+    | NON_OP LP logics RP
 ;
 
 logic_expr: IDENTIFIER ASSIGN logics;
@@ -151,12 +155,11 @@ operation_stmt: operation NEW_LINE;
 
 operation:
     expr operators expr
-    | short_operation
 ;
 
 short_operation:
-    num_expr INCREMENT
-    | num_expr DECREMENT
+    IDENTIFIER INCREMENT
+    | IDENTIFIER DECREMENT
 ;
 
 operators:
@@ -209,10 +212,13 @@ break_stmt:
 ;
 
 import_stmt:
-    IMPORT IDENTIFIER NEW_LINE
-    | IMPORT IDENTIFIER AS IDENTIFIER NEW_LINE
-    | FROM IDENTIFIER IMPORT IDENTIFIER NEW_LINE
-    | FROM IDENTIFIER IMPORT IDENTIFIER AS IDENTIFIER NEW_LINE
+    IMPORT IDENTIFIER import_alias NEW_LINE
+    | FROM IDENTIFIER IMPORT IDENTIFIER import_alias NEW_LINE
+;
+
+import_alias:
+    /* empty */
+    | AS IDENTIFIER
 ;
 
 comment_stmt: COMMENT NEW_LINE;
