@@ -127,6 +127,11 @@ string_expr:
     | LP string_expr RP
 ;
 
+logicals: 
+    logics
+    | logicals OR logics;
+    | logicals AND logics;
+
 logics:
     TRUE
     | FALSE
@@ -134,7 +139,7 @@ logics:
     | NON_OP LP logics RP
 ;
 
-logic_expr: IDENTIFIER ASSIGN logics;
+logic_expr: IDENTIFIER ASSIGN logicals;
 
 operation_stmt: operation NEW_LINE;
 
@@ -201,8 +206,7 @@ import_stmt:
     | FROM IDENTIFIER IMPORT IDENTIFIER import_alias NEW_LINE
 ;
 
-import_alias: AS IDENTIFIER
-;
+import_alias: AS IDENTIFIER;
 
 comment_stmt: COMMENT NEW_LINE;
 
