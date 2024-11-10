@@ -133,8 +133,7 @@ string_expr:
 logics:
     TRUE
     | FALSE
-    | IDENTIFIER comparators num_expr
-    | IDENTIFIER comparators string_expr
+    | IDENTIFIER comparators expr
     | NON_OP LP logics RP
 ;
 
