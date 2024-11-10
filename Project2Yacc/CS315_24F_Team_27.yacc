@@ -224,7 +224,7 @@ multicomment_stmt: MULTI_COMMENT NEW_LINE;
 
 /* Buranın altı baştan yazılacak pancar yiyebilir gibi */
 int yyerror(char* s){
-  fprintf(stderr, "%s on line %d\n",s, yylineno);
+  fprintf(stderr, "\n%s on line %d!\n",s, yylineno);
   return 1;
 }
 
